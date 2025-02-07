@@ -18,7 +18,8 @@ return {
         { "<leader>*", "<cmd>FzfLua grep_cword<cr>",   mode = "n" },
         { "<leader>*", "<cmd>FzfLua grep_visual<cr>",  mode = "x" },
         -- lsp
-        { "<leader>ld", "<cmd>FzfLua lsp_definitions<cr>",     mode = "" },
+        -- { "<leader>ld", "<cmd>FzfLua lsp_definitions<cr>",     mode = "" },
+        { "<leader>ld", ":lua require('fzf-lua').lsp_definitions({jump_to_single_result=true})<cr>", mode = "", silent = true },
         { "<leader>lD", "<cmd>FzfLua lsp_declarations<cr>",    mode = "" },
         { "<leader>lt", "<cmd>FzfLua lsp_typedefs<cr>",        mode = "" },
         { "<leader>li", "<cmd>FzfLua lsp_implementations<cr>", mode = "" },
@@ -64,7 +65,7 @@ return {
                 },
             },
             lsp = {
-                jump_to_single_result = true,
+                jump_to_single_result = false,
                 includeDeclaration = false,
                 ignore_current_line = true,
                 jump_to_single_result_action = actions.file_edit,
