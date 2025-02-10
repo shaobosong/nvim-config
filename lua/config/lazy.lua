@@ -34,7 +34,6 @@ require("lazy").setup({
         { import = "plugins.treesitter" },
         { import = 'plugins.cmp' },
         { import = 'plugins.fzf' },
-        { import = 'plugins.telescope' },
         { import = 'plugins.tree' },
         { import = "plugins.lsp" },
         { "shaobosong/vim-line-comment" },
