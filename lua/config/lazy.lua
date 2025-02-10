@@ -32,6 +32,7 @@ require("lazy").setup({
         -- { import = 'plugins.kanagawa' },
         -- { "oxfist/night-owl.nvim" },
         { import = "plugins.treesitter" },
+        { import = 'plugins.cmp' },
         { import = 'plugins.fzf' },
         { import = 'plugins.telescope' },
         { import = 'plugins.tree' },
