@@ -16,13 +16,13 @@ return {
     cmd = { "FzfLua" },
     keys = {
         -- search
-        { "<leader>/", "<cmd>FzfLua grep_project<cr>", mode = "" },
-        { "<leader>?", "<cmd>FzfLua grep_last<cr>",    mode = "" },
-        { "<leader>*", "<cmd>FzfLua grep_cword<cr>",   mode = "n" },
-        { "<leader>*", "<cmd>FzfLua grep_visual<cr>",  mode = "x" },
-        { "<leader><C-]>", "<cmd>FzfLua ast_live_grep<cr>", mode = "" },
+        { "<leader>/",     "<cmd>FzfLua grep_project<cr>",     mode = "" },
+        { "<leader>?",     "<cmd>FzfLua grep_last<cr>",        mode = "" },
+        { "<leader>*",     "<cmd>FzfLua grep_cword<cr>",       mode = "n" },
+        { "<leader>*",     "<cmd>FzfLua grep_visual<cr>",      mode = "x" },
+        { "<leader><C-]>", "<cmd>FzfLua my_ast_live_grep<cr>", mode = "" },
         -- lsp
-        { "<leader>ld", "<cmd>FzfLua lsp_definitions<cr>",     mode = "" },
+        { "<leader>ld", "<cmd>FzfLua my_lsp_definitions<cr>",  mode = "" },
         { "<leader>lD", "<cmd>FzfLua lsp_declarations<cr>",    mode = "" },
         { "<leader>lt", "<cmd>FzfLua lsp_typedefs<cr>",        mode = "" },
         { "<leader>li", "<cmd>FzfLua lsp_implementations<cr>", mode = "" },
@@ -78,21 +78,22 @@ return {
             },
         })
 
-        -- lsp definitions
-        local default_lsp_definitions = fzf_lua.lsp_definitions
-        fzf_lua.lsp_definitions = function(opts)
-            local default_options = {
-                jump_to_single_result = true,
-            }
-            opts = vim.tbl_deep_extend("force", default_options, opts or {});
-            return default_lsp_definitions(opts)
-        end
+        -- my lsp-definitions
+        fzf_lua.my_lsp_definitions = (function(default_lsp_definitions)
+            return function(opts)
+                local my_opts = {
+                    jump_to_single_result = true,
+                }
+                opts = vim.tbl_deep_extend("force", my_opts, opts or {});
+                default_lsp_definitions(opts)
+            end
+        end)(fzf_lua.lsp_definitions)
 
-        -- ast-grep extention
+        -- extension: my ast-grep
         local fzf_lua_ast_live_grep = require('fzf-lua-ast-grep')
         local default_ast_live_grep = fzf_lua_ast_live_grep.ast_live_grep
-        fzf_lua.ast_live_grep = function(opts)
-            local default_options = {
+        fzf_lua.my_ast_live_grep = function(opts)
+            local my_opts = {
                 fzf_lua_options = {
                     prompt = "> ",
                     winopts = {
@@ -109,7 +110,7 @@ return {
                     },
                 },
             }
-            opts = vim.tbl_deep_extend("force", default_options, opts);
+            opts = vim.tbl_deep_extend("force", my_opts, opts or {});
             return default_ast_live_grep(opts)
         end
     end,
