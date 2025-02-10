@@ -8,6 +8,9 @@ return {
             'junegunn/fzf',
             build = './install --bin',
         },
+        {
+            "MisanthropicBit/fzf-lua-ast-grep.nvim",
+        },
     },
     lazy = true,
     cmd = { "FzfLua" },
@@ -17,6 +20,7 @@ return {
         { "<leader>?", "<cmd>FzfLua grep_last<cr>",    mode = "" },
         { "<leader>*", "<cmd>FzfLua grep_cword<cr>",   mode = "n" },
         { "<leader>*", "<cmd>FzfLua grep_visual<cr>",  mode = "x" },
+        { "<leader><C-]>", "<cmd>FzfLua ast_live_grep<cr>", mode = "" },
         -- lsp
         { "<leader>ld", "<cmd>FzfLua lsp_definitions<cr>",     mode = "" },
         { "<leader>lD", "<cmd>FzfLua lsp_declarations<cr>",    mode = "" },
@@ -81,6 +85,31 @@ return {
             }
             opts = vim.tbl_deep_extend("force", default_options, opts or {});
             return default_lsp_definitions(opts)
+        end
+
+        -- ast-grep extention
+        local fzf_lua_ast_live_grep = require('fzf-lua-ast-grep')
+        local default_ast_live_grep = fzf_lua_ast_live_grep.ast_live_grep
+        fzf_lua.ast_live_grep = function(opts)
+            local default_options = {
+                fzf_lua_options = {
+                    prompt = "> ",
+                    winopts = {
+                        title = " Grep AST ",
+                    },
+                },
+                -- invalid for now
+                ast_grep_options = {
+                    command = "ast-grep",
+                    args = {
+                        "run",
+                        "--color=always",
+                        "--heading=never",
+                    },
+                },
+            }
+            opts = vim.tbl_deep_extend("force", default_options, opts);
+            return default_ast_live_grep(opts)
         end
     end,
 }
