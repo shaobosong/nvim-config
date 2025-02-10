@@ -18,8 +18,7 @@ return {
         { "<leader>*", "<cmd>FzfLua grep_cword<cr>",   mode = "n" },
         { "<leader>*", "<cmd>FzfLua grep_visual<cr>",  mode = "x" },
         -- lsp
-        -- { "<leader>ld", "<cmd>FzfLua lsp_definitions<cr>",     mode = "" },
-        { "<leader>ld", ":lua require('fzf-lua').lsp_definitions({jump_to_single_result=true})<cr>", mode = "", silent = true },
+        { "<leader>ld", "<cmd>FzfLua lsp_definitions<cr>",     mode = "" },
         { "<leader>lD", "<cmd>FzfLua lsp_declarations<cr>",    mode = "" },
         { "<leader>lt", "<cmd>FzfLua lsp_typedefs<cr>",        mode = "" },
         { "<leader>li", "<cmd>FzfLua lsp_implementations<cr>", mode = "" },
@@ -73,5 +72,15 @@ return {
                 -- default for others
             },
         })
+
+        -- lsp definitions
+        local default_lsp_definitions = fzf_lua.lsp_definitions
+        fzf_lua.lsp_definitions = function(opts)
+            local default_options = {
+                jump_to_single_result = true,
+            }
+            opts = vim.tbl_deep_extend("force", default_options, opts or {});
+            return default_lsp_definitions(opts)
+        end
     end,
 }
