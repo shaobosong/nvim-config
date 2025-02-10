@@ -40,6 +40,9 @@ return {
         local actions = fzf_lua.actions
         fzf_lua.setup({
             fzf_bin = vim.fn.stdpath("data") .. "/lazy/fzf/bin/fzf",
+            winopts  = {
+                treesitter = false,
+            },
             keymap = {
                 builtin = {
                     -- inherit from default values
