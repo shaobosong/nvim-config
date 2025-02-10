@@ -47,8 +47,6 @@ return {
                 builtin = {
                     -- inherit from default values
                     true,
-                    ["<c-u>"] = "preview-page-up",
-                    ["<c-d>"] = "preview-page-down",
                 },
                 fzf = {
                     ["alt-j"] = "down",
