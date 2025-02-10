@@ -37,6 +37,7 @@ return {
                 hl.PmenuSel = { bg = "#6A6A6A" }
 
                 hl.NormalFloat = { bg = "#343434", fg = "#c0caf5" }
+                hl.FloatBorder = { fg = "#666666" }
 
                 hl.ColorColumn = { bg = "#f20f44" }
 
