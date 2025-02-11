@@ -22,7 +22,7 @@ return {
         -- lsp
         { "<leader>ld", "<cmd>FzfLua my_lsp_definitions<cr>",  mode = "" },
         { "<leader>lD", "<cmd>FzfLua lsp_declarations<cr>",    mode = "" },
-        { "<leader>lt", "<cmd>FzfLua lsp_typedefs<cr>",        mode = "" },
+        { "<leader>lt", "<cmd>FzfLua my_lsp_typedefs<cr>",     mode = "" },
         { "<leader>li", "<cmd>FzfLua lsp_implementations<cr>", mode = "" },
         { "<leader>lr", "<cmd>FzfLua lsp_references<cr>",      mode = "" },
         { "<leader>la", "<cmd>FzfLua lsp_code_actions<cr>",    mode = "" },
@@ -89,6 +89,17 @@ return {
                 default_lsp_definitions(opts)
             end
         end)(fzf_lua.lsp_definitions)
+
+        -- my lsp-typedefs
+        fzf_lua.my_lsp_typedefs = (function(default_lsp_typedefs)
+            return function(opts)
+                local my_opts = {
+                    jump_to_single_result = true,
+                }
+                opts = vim.tbl_deep_extend("force", my_opts, opts or {});
+                default_lsp_typedefs(opts)
+            end
+        end)(fzf_lua.lsp_typedefs)
 
         -- Extension: ast-grep identifier
         fzf_lua.ast_grep_identifier = function(opts)
