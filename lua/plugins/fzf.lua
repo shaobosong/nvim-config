@@ -8,19 +8,17 @@ return {
             'junegunn/fzf',
             build = './install --bin',
         },
-        {
-            "MisanthropicBit/fzf-lua-ast-grep.nvim",
-        },
     },
     lazy = true,
     cmd = { "FzfLua" },
     keys = {
-        -- search
-        { "<leader>/",     "<cmd>FzfLua grep_project<cr>",     mode = "" },
-        { "<leader>?",     "<cmd>FzfLua grep_last<cr>",        mode = "" },
-        { "<leader>*",     "<cmd>FzfLua grep_cword<cr>",       mode = "n" },
-        { "<leader>*",     "<cmd>FzfLua grep_visual<cr>",      mode = "x" },
-        { "<leader><C-]>", "<cmd>FzfLua my_ast_live_grep<cr>", mode = "" },
+        -- grep/rg search
+        { "<leader>g/", "<cmd>FzfLua grep_project<cr>", mode = "" },
+        { "<leader>g?", "<cmd>FzfLua grep_last<cr>",    mode = "" },
+        { "<leader>g*", "<cmd>FzfLua grep_cword<cr>",   mode = "n" },
+        { "<leader>g*", "<cmd>FzfLua grep_visual<cr>",  mode = "x" },
+        -- ast-grep search
+        { "<leader>gi", "<cmd>FzfLua ast_grep_identifier<cr>", mode = "" },
         -- lsp
         { "<leader>ld", "<cmd>FzfLua my_lsp_definitions<cr>",  mode = "" },
         { "<leader>lD", "<cmd>FzfLua lsp_declarations<cr>",    mode = "" },
@@ -32,7 +30,6 @@ return {
         { "<leader>:", "<cmd>FzfLua<cr>",         mode = "" },
         { "<leader>b", "<cmd>FzfLua buffers<cr>", mode = "" },
         { "<leader>f", "<cmd>FzfLua files<cr>",   mode = "" },
-        { "<leader>t", "<cmd>FzfLua tags<cr>",    mode = "" },
     },
     --- @see fzf-lua-customization
     config = function()
@@ -42,6 +39,10 @@ return {
             fzf_bin = vim.fn.stdpath("data") .. "/lazy/fzf/bin/fzf",
             winopts  = {
                 treesitter = false,
+            },
+            fzf_opts = {
+                -- ignorecase
+                ["-i"] = true,
             },
             keymap = {
                 builtin = {
@@ -89,29 +90,27 @@ return {
             end
         end)(fzf_lua.lsp_definitions)
 
-        -- extension: my ast-grep
-        local fzf_lua_ast_live_grep = require('fzf-lua-ast-grep')
-        local default_ast_live_grep = fzf_lua_ast_live_grep.ast_live_grep
-        fzf_lua.my_ast_live_grep = function(opts)
+        -- Extension: ast-grep identifier
+        fzf_lua.ast_grep_identifier = function(opts)
             local my_opts = {
-                fzf_lua_options = {
-                    prompt = "> ",
-                    winopts = {
-                        title = " Grep AST ",
-                    },
+                prompt = "> ",
+                winopts = {
+                    title = " Grep AST Identifier ",
                 },
-                -- invalid for now
-                ast_grep_options = {
-                    command = "ast-grep",
-                    args = {
-                        "run",
-                        "--color=always",
-                        "--heading=never",
-                    },
+                fzf_opts = {
+                    ["-i"] = true,
+                    ["--delimiter"] = ":",
+                    ["--nth"]  = '3..',
                 },
+                git_icons = false,
+                file_icons = false,
+                color_icons = false,
+                actions = fzf_lua.defaults.actions.files,
+                previewer = "builtin",
             }
             opts = vim.tbl_deep_extend("force", my_opts, opts or {});
-            return default_ast_live_grep(opts)
+            local my_cmd = "ast-grep --pattern '$PATTERN' --heading=never --color=always --selector identifier"
+            fzf_lua.fzf_exec(my_cmd, opts)
         end
     end,
 }
