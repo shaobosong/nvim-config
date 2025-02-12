@@ -108,6 +108,14 @@ return {
                 winopts = {
                     title = " Grep AST Identifier ",
                 },
+                keymap = {
+                    fzf = {
+                        ["alt-j"] = "down",
+                        ["alt-k"] = "up",
+                        ["alt-l"] = "abort",
+                        ["ctrl-alt-h"] = "backward-kill-word",
+                    },
+                },
                 fzf_opts = {
                     ["-i"] = true,
                     ["--delimiter"] = ":",
@@ -116,7 +124,14 @@ return {
                 git_icons = false,
                 file_icons = false,
                 color_icons = false,
-                actions = fzf_lua.defaults.actions.files,
+                actions = {
+                    ["enter"]  = actions.file_edit_or_qf,
+                    ["ctrl-s"] = actions.file_split,
+                    ["ctrl-v"] = actions.file_vsplit,
+                    ["ctrl-t"] = actions.file_tabedit,
+                    ["alt-q"]  = actions.file_sel_to_qf,
+                    ["alt-Q"]  = actions.file_sel_to_ll,
+                },
                 previewer = "builtin",
             }
             opts = vim.tbl_deep_extend("force", my_opts, opts or {});
