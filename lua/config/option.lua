@@ -10,6 +10,7 @@ vim.opt.relativenumber = true
 
 -- Search settings
 vim.opt.hlsearch = true
+vim.opt.incsearch = false
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
 
