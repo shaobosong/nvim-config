@@ -14,7 +14,7 @@ return {
                 disable = { "c", "cpp" },
             },
             indent = {
-                enable = true,
+                enable = false,
             },
             incremental_selection = {
                 enable = true,
