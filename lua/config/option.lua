@@ -56,7 +56,7 @@ vim.opt.wildmode = 'list:longest'
 vim.opt.compatible = false
 
 -- Add all subdirectories to the search path
-vim.opt.path:append('**')
+-- vim.opt.path:append('**')
 
 -- Tags file
 if vim.fn.empty(vim.fn.glob('~/.vim/tags/systags')) == 0 then

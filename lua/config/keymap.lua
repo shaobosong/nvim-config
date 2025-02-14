@@ -18,3 +18,10 @@ vim.keymap.set('x', 'gs', ':s@@@g<C-F>hhi' ,opts)
 vim.keymap.set('', 'gt', ':<C-U>TagbarToggle<CR>' ,opts)
 vim.keymap.set('', '[[', ':<C-U>TagbarJumpPrev<CR>' ,opts)
 vim.keymap.set('', ']]', ':<C-U>TagbarJumpNext<CR>' ,opts)
+
+vim.keymap.set('n', 'gf', function()
+    local saved_path = vim.opt.path:get()
+    vim.opt.path:append('**')
+    vim.cmd('normal! gf')
+    vim.opt.path = saved_path
+end, opts)
