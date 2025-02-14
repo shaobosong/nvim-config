@@ -13,6 +13,12 @@ return {
     },
     {
         "neovim/nvim-lspconfig",
+        lazy = true,
+        event = { "BufReadPost", "BufNewFile" },
+        dependencies = {
+            "williamboman/mason.nvim",
+            "williamboman/mason-lspconfig.nvim",
+        },
         config = function()
             local lspconfig = require("lspconfig")
             local on_attach = function(client, bufnr)
@@ -29,6 +35,7 @@ return {
                 vim.keymap.set('', '<leader>lf', function()
                     vim.lsp.buf.format { async = true }
                 end, opts)
+                vim.keymap.set('n', 'g<C-]>', ':tjump <C-R><C-W><CR>', opts)
                 -- disable syntax highlight from lsp server
                 -- client.server_capabilities.semanticTokensProvider = nil
             end
