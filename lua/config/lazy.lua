@@ -50,4 +50,24 @@ require("lazy").setup({
     -- install = { colorscheme = { "tokyonight-night" } },
     -- automatically check for plugin updates
     checker = { enabled = false },
+    ui = {
+        border = "none",
+        -- The backdrop opacity. 0 is fully opaque, 100 is fully transparent.
+        backdrop = 100,
+        icons = {
+            cmd = "⌘",
+            config = "🛠",
+            event = "📅",
+            ft = "📂",
+            init = "⚙",
+            keys = "🗝",
+            plugin = "🔌",
+            runtime = "💻",
+            require = "🌙",
+            source = "📄",
+            start = "🚀",
+            task = "📌",
+            lazy = "💤 ",
+        },
+    },
 })
