@@ -34,7 +34,9 @@ return {
     --- @see fzf-lua-customization
     config = function()
         local fzf_lua = require("fzf-lua")
-        local actions = fzf_lua.actions
+        local fzf_actions = fzf_lua.actions
+        local fzf_history_file = vim.fn.stdpath("data") .. "/lazy/fzf/bin/.nvim-fzf-history"
+        local fzf_search_history_file = vim.fn.stdpath("data") .. "/lazy/fzf/bin//.nvim-fzf-search-history"
         fzf_lua.setup({
             fzf_bin = vim.fn.stdpath("data") .. "/lazy/fzf/bin/fzf",
             winopts  = {
@@ -43,6 +45,7 @@ return {
             fzf_opts = {
                 -- ignorecase
                 ["-i"] = true,
+                ["--history"] = fzf_history_file,
             },
             keymap = {
                 builtin = {
@@ -58,24 +61,29 @@ return {
             },
             actions = {
                 files = {
-                    ["enter"]  = actions.file_edit_or_qf,
-                    ["ctrl-s"] = actions.file_split,
-                    ["ctrl-v"] = actions.file_vsplit,
-                    ["ctrl-t"] = actions.file_tabedit,
-                    ["alt-q"]  = actions.file_sel_to_qf,
-                    ["alt-Q"]  = actions.file_sel_to_ll,
-                    ["alt-i"]  = actions.toggle_ignore,
-                    ["alt-h"]  = actions.toggle_hidden,
-                    ["alt-F"]  = actions.toggle_follow,
+                    ["enter"]  = fzf_actions.file_edit_or_qf,
+                    ["ctrl-s"] = fzf_actions.file_split,
+                    ["ctrl-v"] = fzf_actions.file_vsplit,
+                    ["ctrl-t"] = fzf_actions.file_tabedit,
+                    ["alt-q"]  = fzf_actions.file_sel_to_qf,
+                    ["alt-Q"]  = fzf_actions.file_sel_to_ll,
+                    ["alt-i"]  = fzf_actions.toggle_ignore,
+                    ["alt-h"]  = fzf_actions.toggle_hidden,
+                    ["alt-F"]  = fzf_actions.toggle_follow,
                 },
             },
             lsp = {
                 jump_to_single_result = false,
                 includeDeclaration = false,
                 ignore_current_line = true,
-                jump_to_single_result_action = actions.file_edit,
+                jump_to_single_result_action = fzf_actions.file_edit,
                 -- jump_to_single_result_action = actions.file_vsplit,
                 -- default for others
+            },
+            grep = {
+                fzf_opts = {
+                    ["--history"] = fzf_search_history_file,
+                },
             },
         })
 
@@ -120,17 +128,18 @@ return {
                     ["-i"] = true,
                     ["--delimiter"] = ":",
                     ["--nth"]  = '3..',
+                    ["--history"] = fzf_search_history_file,
                 },
                 git_icons = false,
                 file_icons = false,
                 color_icons = false,
                 actions = {
-                    ["enter"]  = actions.file_edit_or_qf,
-                    ["ctrl-s"] = actions.file_split,
-                    ["ctrl-v"] = actions.file_vsplit,
-                    ["ctrl-t"] = actions.file_tabedit,
-                    ["alt-q"]  = actions.file_sel_to_qf,
-                    ["alt-Q"]  = actions.file_sel_to_ll,
+                    ["enter"]  = fzf_actions.file_edit_or_qf,
+                    ["ctrl-s"] = fzf_actions.file_split,
+                    ["ctrl-v"] = fzf_actions.file_vsplit,
+                    ["ctrl-t"] = fzf_actions.file_tabedit,
+                    ["alt-q"]  = fzf_actions.file_sel_to_qf,
+                    ["alt-Q"]  = fzf_actions.file_sel_to_ll,
                 },
                 previewer = "builtin",
             }
