@@ -63,6 +63,8 @@ return {
                 hl.Statement = { fg = "#FFD700" }
                 hl.Function = { fg = "#7AA2F7" }
 
+                hl.DiagnosticUnnecessary = { fg = "#626262" }
+
                 -- hl["@lsp.type.variable"] = { fg = "#FFFFFF" }
                 -- hl["@property"] = { fg = "#FFFE91" }
             end,
