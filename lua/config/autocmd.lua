@@ -40,9 +40,9 @@ vim.api.nvim_create_autocmd("FileType", {
 vim.api.nvim_create_autocmd({"WinLeave"}, {
     pattern = "*",
     callback = function()
-        local ft_tbl = { "tagbar", "query", "qf", "netrw", "man" }
+        local ft_tbl = { "tagbar", "query", "qf", "netrw", "man", "lazy" }
         if vim.tbl_contains(ft_tbl, vim.bo.filetype) and vim.fn.winnr("$") > 1 then
-            vim.cmd("q")
+            vim.api.nvim_win_close(vim.api.nvim_get_current_win(), false)
         end
     end
 })
