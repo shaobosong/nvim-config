@@ -27,7 +27,7 @@ return {
                 -- hl.StatusLineNC = { fg = "#FFFFFF" }
                 hl.MsgArea = { fg = "#c0caf5" }
                 hl.ModeMsg = { fg = "#c0caf5" }
-                hl.Visual = { bg = "#505050" }
+                hl.Visual = { bg = "#484848" }
                 hl.MatchParen = { bg = "#606060", fg = "#FF9E64" }
                 hl.Identifier = { fg = "#ff8700" }
 
@@ -62,8 +62,6 @@ return {
                 hl.Operator = { fg = "#00AF00" }
                 hl.Statement = { fg = "#FFD700" }
                 hl.Function = { fg = "#7AA2F7" }
-
-                hl.DiagnosticUnnecessary = { fg = "#626262" }
 
                 -- hl["@lsp.type.variable"] = { fg = "#FFFFFF" }
                 -- hl["@property"] = { fg = "#FFFE91" }
