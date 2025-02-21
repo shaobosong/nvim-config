@@ -9,10 +9,10 @@ return {
         "williamboman/mason-lspconfig.nvim",
         config = function()
             require("mason-lspconfig").setup({
-            ensure_installed = { "lua_ls", "clangd" },
-            automatic_installation = false,
-            handlers = nil,
-        })
+                ensure_installed = { "lua_ls", "clangd" },
+                automatic_installation = false,
+                handlers = nil,
+            })
         end,
     },
     {
@@ -83,8 +83,8 @@ return {
                         "compile_commands.json",
                         "compile_flags.txt"
                     )(fname) or vim.fs.dirname(
-                            vim.fs.find('.git', { path = fname, upward = true })[1]
-                        )
+                        vim.fs.find('.git', { path = fname, upward = true })[1]
+                    )
                 end,
                 cmd = {
                     'clangd',
