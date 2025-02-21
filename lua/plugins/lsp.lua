@@ -39,33 +39,33 @@ return {
                 vim.keymap.set('', '<leader>lf', function()
                     vim.lsp.buf.format { async = true }
                 end, opts)
-                vim.keymap.set('n', 'g<C-]>', ':tjump <C-R><C-W><CR>', opts)
+                -- disable tagfunc from lsp server
+                vim.opt.tagfunc = ''
                 -- disable syntax highlight from lsp server
                 -- client.server_capabilities.semanticTokensProvider = nil
-            end
-
-            --- @type vim.diagnostic.Opts
-            local diagnostic = {
-                underline = true,
-                -- virtual_text = {
-                --     prefix = '▶',
-                --     virt_text_pos = 'right_align',
-                -- },
-                update_in_insert = false,
-                signs = false,
-            }
-            vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
-                vim.lsp.diagnostic.on_publish_diagnostics, diagnostic
-            )
-            vim.lsp.handlers["textDocument/diagnostic"] = vim.lsp.with(
-                vim.lsp.diagnostic.on_diagnostic, diagnostic
-            )
-            vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
-                vim.lsp.handlers.hover, {
-                    border = "single",
-                    -- title = " hover "
+                -- type: vim.diagnostic.Opts
+                local diagnostic = {
+                    underline = true,
+                    -- virtual_text = {
+                    --     prefix = '▶',
+                    --     virt_text_pos = 'right_align',
+                    -- },
+                    update_in_insert = false,
+                    signs = false,
                 }
-            )
+                vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
+                    vim.lsp.diagnostic.on_publish_diagnostics, diagnostic
+                )
+                vim.lsp.handlers["textDocument/diagnostic"] = vim.lsp.with(
+                    vim.lsp.diagnostic.on_diagnostic, diagnostic
+                )
+                vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
+                    vim.lsp.handlers.hover, {
+                        border = "single",
+                        -- title = " hover "
+                    }
+                )
+            end
 
             -- C-family
             lspconfig.clangd.setup({
