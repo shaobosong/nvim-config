@@ -61,8 +61,49 @@ vim.api.nvim_create_autocmd({"BufNewFile", "BufRead", "BufEnter"}, {
 --- @see lsp-defaults-disable
 vim.api.nvim_create_autocmd('LspAttach', {
     callback = function(ev)
+        local client = vim.lsp.get_client_by_id(ev.data.client_id)
+        local opts = { noremap = true, silent = true, buffer = ev.buf }
+        -- type: vim.diagnostic.Opts
+        local diagnostic = {
+            underline = true,
+            -- virtual_text = {
+            --     prefix = '▶',
+            --     virt_text_pos = 'right_align',
+            -- },
+            update_in_insert = false,
+            signs = false,
+        }
         vim.bo[ev.buf].formatexpr = nil
         vim.bo[ev.buf].omnifunc = nil
+        vim.bo[ev.buf].tagfunc = nil
+        -- keymaps
+        -- disable the following keymaps if 'fzf-lua' is enabled.
+        -- vim.keymap.set('', '<leader>ld', vim.lsp.buf.definition, opts)
+        -- vim.keymap.set('', '<leader>lD', vim.lsp.buf.declaration, opts)
+        -- vim.keymap.set('', '<leader>lt', vim.lsp.buf.type_definition, opts)
+        -- vim.keymap.set('', '<leader>li', vim.lsp.buf.implementation, opts)
+        -- vim.keymap.set('', '<leader>lr', vim.lsp.buf.references, opts)
+        -- vim.keymap.set('', '<leader>la', vim.lsp.buf.code_action, opts)
+        vim.keymap.set('', '<leader>k', vim.lsp.buf.hover, opts)
+        vim.keymap.set('', '<leader>lR', vim.lsp.buf.rename, opts)
+        vim.keymap.set('', '<leader>lf', function()
+            vim.lsp.buf.format { async = true }
+        end, opts)
         vim.keymap.del('n', 'K', { buffer = ev.buf })
+        -- disable syntax highlight from lsp server
+        -- client.server_capabilities.semanticTokensProvider = nil
+        vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
+            vim.lsp.diagnostic.on_publish_diagnostics, diagnostic
+        )
+        vim.lsp.handlers["textDocument/diagnostic"] = vim.lsp.with(
+            vim.lsp.diagnostic.on_diagnostic, diagnostic
+        )
+        vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
+            vim.lsp.handlers.hover, {
+                border = "single",
+                -- title = " hover "
+            }
+        )
+        -- vim.lsp.inlay_hint.enable(true, { bufnr = ev.buf })
     end,
 })
