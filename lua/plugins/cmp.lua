@@ -63,9 +63,9 @@ return {
                 },
                 ['<ESC>l'] = {
                     i = function()
-                        if cmp.visible() then
-                            cmp.close()
-                        end
+                        -- if cmp.visible() then
+                        --     cmp.close()
+                        -- end
                         vim.api.nvim_input('<Esc><Esc>')
                     end
                 },
