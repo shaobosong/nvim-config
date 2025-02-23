@@ -107,3 +107,103 @@ vim.api.nvim_create_autocmd('LspAttach', {
         -- vim.lsp.inlay_hint.enable(true, { bufnr = ev.buf })
     end,
 })
+
+local function lighten_mask_win(mask_win)
+    vim.api.nvim_set_option_value(
+        "winblend", 100, { scope = "local", win = mask_win }
+    )
+end
+
+local function darken_mask_win(mask_win)
+    vim.api.nvim_set_option_value(
+        "winblend", 50, { scope = "local", win = mask_win }
+    )
+end
+
+local function create_mask_win(win)
+    local win_config = vim.api.nvim_win_get_config(win)
+    local mask_buf = vim.api.nvim_create_buf(false, true)
+    local mask_win = vim.api.nvim_open_win(mask_buf, false, {
+        relative = "win",
+        win = win,
+        width = win_config.width,
+        height = win_config.height,
+        row = 0,
+        col = 0,
+        style = "minimal",
+        focusable = false,
+        zindex = 1,
+    })
+    local opts = { scope = "local", win = mask_win }
+
+    vim.api.nvim_set_option_value( "winhighlight", "Normal:Normal", opts)
+
+    if vim.api.nvim_get_current_win() == win then
+        lighten_mask_win(mask_win)
+    else
+        darken_mask_win(mask_win)
+    end
+
+    vim.bo[mask_buf].buftype = "nofile"
+
+    return mask_win
+end
+
+local function resize_mask_win(mask_win, win)
+    local win_config = vim.api.nvim_win_get_config(win)
+    vim.api.nvim_win_set_width(mask_win, win_config.width)
+    vim.api.nvim_win_set_height(mask_win, win_config.height)
+end
+
+local function update_all_mask_wins(mask_wins)
+    -- filter non-popup(include mask) windows in windows list
+    local ignore_win_types = { "popup" }
+    local wins = vim.tbl_filter(function(win)
+        return not vim.tbl_contains(ignore_win_types, vim.fn.win_gettype(win))
+    end, vim.api.nvim_list_wins())
+    -- create or update all mask windows
+    for _, win in ipairs(wins) do
+        -- note: 'only' directive
+        if mask_wins[win] and vim.api.nvim_win_is_valid(mask_wins[win]) then
+            resize_mask_win(mask_wins[win], win)
+        else
+            mask_wins[win] = create_mask_win(win)
+        end
+    end
+    -- clean all unused and invalid mask windows
+    for win, mask_win in pairs(mask_wins) do
+        if not vim.tbl_contains(wins, win) then
+            -- note: 'only' directive
+            if vim.api.nvim_win_is_valid(mask_win) then
+                vim.api.nvim_win_close(mask_win, true)
+            end
+            mask_wins[win] = nil
+        end
+    end
+end
+
+local mask_windows = {}
+
+vim.api.nvim_create_autocmd({ "WinEnter" }, {
+    callback = function()
+        local win = vim.api.nvim_get_current_win()
+        if mask_windows[win] then
+            lighten_mask_win(mask_windows[win])
+        end
+    end,
+})
+
+vim.api.nvim_create_autocmd({ "WinLeave" }, {
+    callback = function()
+        local win = vim.api.nvim_get_current_win()
+        if mask_windows[win] then
+            darken_mask_win(mask_windows[win])
+        end
+    end,
+})
+
+vim.api.nvim_create_autocmd({ "WinResized" }, {
+    callback = function()
+        update_all_mask_wins(mask_windows)
+    end,
+})
