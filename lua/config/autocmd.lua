@@ -3,12 +3,7 @@ vim.api.nvim_create_autocmd("InsertEnter", {
     command = "set colorcolumn=81"
 })
 
-vim.api.nvim_create_autocmd("InsertLeave", {
-    pattern = "*",
-    command = "set colorcolumn=0"
-})
-
-vim.api.nvim_create_autocmd("FocusLost", {
+vim.api.nvim_create_autocmd({ "InsertLeave", "FocusLost" }, {
     pattern = "*",
     command = "set colorcolumn=0"
 })
