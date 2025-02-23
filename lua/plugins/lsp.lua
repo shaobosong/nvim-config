@@ -25,8 +25,11 @@ return {
         },
         config = function()
             local lspconfig = require("lspconfig")
+            local capabilities = vim.lsp.protocol.make_client_capabilities()
+            capabilities.textDocument.completion.completionItem.snippetSupport = true
             -- C-family
             lspconfig.clangd.setup({
+                capabilities = capabilities,
                 root_dir = function(fname)
                     return require("lspconfig.util").root_pattern(
                         ".git",
@@ -63,6 +66,7 @@ return {
             })
             -- Lua
             lspconfig.lua_ls.setup({
+                capabilities = capabilities,
                 settings = {
                     Lua = {
                         runtime = {
