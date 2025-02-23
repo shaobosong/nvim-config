@@ -52,7 +52,7 @@ require("lazy").setup({
     ui = {
         border = "none",
         -- The backdrop opacity. 0 is fully opaque, 100 is fully transparent.
-        backdrop = 100,
+        -- backdrop = 60,
         icons = {
             cmd = "⌘",
             config = "🛠",
