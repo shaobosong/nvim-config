@@ -1,5 +1,3 @@
-local opts = { noremap = true, silent = true }
-
 vim.api.nvim_create_autocmd("InsertEnter", {
     pattern = "*",
     command = "set colorcolumn=81"
@@ -18,6 +16,7 @@ vim.api.nvim_create_autocmd("FocusLost", {
 vim.api.nvim_create_autocmd("FileType", {
     pattern = "fzf",
     callback = function()
+        -- local opts = { noremap = true, silent = true }
         -- vim.api.nvim_buf_set_keymap(0, "t", "<ESC>j", "<Down>", opts)
         -- vim.api.nvim_buf_set_keymap(0, "t", "<ESC>k", "<Up>", opts)
         -- vim.api.nvim_buf_set_keymap(0, "t", "<ESC>l", "<C-Q>", opts)
@@ -28,6 +27,7 @@ vim.api.nvim_create_autocmd("FileType", {
 -- vim.api.nvim_create_autocmd("FileType", {
 --     pattern = "qf,query",
 --     callback = function()
+--         local opts = { noremap = true, silent = true }
 --         vim.api.nvim_buf_set_keymap(0, "n", "<ESC>l", "<C-W>c", opts)
 --         vim.api.nvim_buf_set_keymap(0, "n", "<ESC>H", "<C-W>c", opts)
 --         vim.api.nvim_buf_set_keymap(0, "n", "<ESC>J", "<C-W>c", opts)
@@ -50,6 +50,7 @@ vim.api.nvim_create_autocmd({"WinLeave"}, {
 vim.api.nvim_create_autocmd("CmdwinEnter", {
     pattern = "*",
     callback = function()
+        local opts = { noremap = true, silent = true }
         -- vim.api.nvim_buf_set_keymap(0, "n", "<ESC>l", "<C-W>c", opts)
         vim.api.nvim_buf_set_keymap(0, "n", "<ESC>K", "<C-W>c", opts)
         vim.api.nvim_buf_set_keymap(0, "i", "<ESC>K", "<ESC><C-W>c", opts)
