@@ -90,8 +90,10 @@ vim.api.nvim_create_autocmd('LspAttach', {
             vim.lsp.buf.format { async = true }
         end, opts)
         vim.keymap.del('n', 'K', { buffer = ev.buf })
-        -- disable syntax highlight from lsp server
-        -- client.server_capabilities.semanticTokensProvider = nil
+        if client then
+            -- disable syntax highlight from lsp server
+            -- client.server_capabilities.semanticTokensProvider = nil
+        end
         vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
             vim.lsp.diagnostic.on_publish_diagnostics, diagnostic
         )
