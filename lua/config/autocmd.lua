@@ -42,6 +42,13 @@ vim.api.nvim_create_autocmd({"WinLeave"}, {
     end
 })
 
+vim.api.nvim_create_autocmd("FileType", {
+    pattern = "lazy_backdrop",
+    callback = function()
+        vim.api.nvim_win_close(vim.api.nvim_get_current_win(), false)
+    end
+})
+
 vim.api.nvim_create_autocmd("CmdwinEnter", {
     pattern = "*",
     callback = function()
