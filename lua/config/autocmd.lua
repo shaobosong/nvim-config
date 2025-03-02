@@ -198,7 +198,8 @@ vim.api.nvim_create_autocmd({ "WinEnter" }, {
 vim.api.nvim_create_autocmd({ "WinLeave" }, {
     callback = function()
         local win = vim.api.nvim_get_current_win()
-        if mask_windows[win] then
+        -- lazy clean invalid mask window when resize a window.
+        if mask_windows[win] and vim.api.nvim_win_is_valid(mask_windows[win]) then
             darken_mask_win(mask_windows[win])
         end
     end,
