@@ -205,7 +205,7 @@ vim.api.nvim_create_autocmd({ "WinLeave" }, {
     end,
 })
 
-vim.api.nvim_create_autocmd({ "WinResized" }, {
+vim.api.nvim_create_autocmd({ "VimEnter", "WinResized" }, {
     callback = function()
         update_all_mask_wins(mask_windows)
     end,
