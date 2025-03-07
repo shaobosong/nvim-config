@@ -38,6 +38,7 @@ require("lazy").setup({
         { import = "plugins.aerial" },
         { import = "plugins.gitsigns" },
         { import = "plugins.maskwin" },
+        { import = "plugins.chdir" },
         { "shaobosong/vim-line-comment" },
         { "shaobosong/vim-copy" },
         -- { "mhinz/vim-signify" },
