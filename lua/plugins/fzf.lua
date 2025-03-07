@@ -73,11 +73,11 @@ return {
                 },
             },
             lsp = {
-                jump_to_single_result = false,
+                jump1 = false,
                 includeDeclaration = false,
                 ignore_current_line = true,
-                jump_to_single_result_action = fzf_actions.file_edit,
-                -- jump_to_single_result_action = actions.file_vsplit,
+                jump1_action = fzf_actions.file_edit,
+                -- jump1_action = actions.file_vsplit,
                 -- default for others
             },
             grep = {
@@ -91,7 +91,7 @@ return {
         fzf_lua.my_lsp_definitions = (function(default_lsp_definitions)
             return function(opts)
                 local my_opts = {
-                    jump_to_single_result = true,
+                    jump1 = true,
                 }
                 opts = vim.tbl_deep_extend("force", my_opts, opts or {});
                 default_lsp_definitions(opts)
@@ -102,7 +102,7 @@ return {
         fzf_lua.my_lsp_typedefs = (function(default_lsp_typedefs)
             return function(opts)
                 local my_opts = {
-                    jump_to_single_result = true,
+                    jump1 = true,
                 }
                 opts = vim.tbl_deep_extend("force", my_opts, opts or {});
                 default_lsp_typedefs(opts)
