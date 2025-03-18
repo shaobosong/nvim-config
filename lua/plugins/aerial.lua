@@ -14,7 +14,10 @@ return {
     },
     config = function()
         require("aerial").setup({
-            backends = { "treesitter", "lsp", "markdown", "asciidoc", "man" },
+            backends = {
+                ['_'] = { "treesitter", "lsp", "markdown", "asciidoc", "man" },
+                c = { "lsp" },
+        },
 
             layout = {
                 -- These control the width of the aerial window.
@@ -111,14 +114,40 @@ return {
             -- This can be a filetype map (see :help aerial-filetype-map)
             -- To see all available values, see :help SymbolKind
             filter_kind = {
-                "Class",
-                "Constructor",
-                "Enum",
-                "Function",
-                "Interface",
-                "Module",
-                "Method",
-                "Struct",
+                ['_'] = {
+                    "Array",
+                    "Boolean",
+                    "Class",
+                    "Constant",
+                    "Constructor",
+                    "Enum",
+                    "EnumMember",
+                    "Event",
+                    "Field",
+                    "File",
+                    "Function",
+                    "Interface",
+                    "Key",
+                    "Method",
+                    "Module",
+                    "Namespace",
+                    "Null",
+                    "Number",
+                    "Object",
+                    "Operator",
+                    "Package",
+                    "Property",
+                    "String",
+                    "Struct",
+                    "TypeParameter",
+                    "Variable",
+                },
+                c = {
+                    -- "Field",
+                    "Function",
+                    "Struct",
+                    "Variable",
+                },
             },
 
             -- Determines line highlighting mode when multiple splits are visible.
