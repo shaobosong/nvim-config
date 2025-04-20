@@ -20,8 +20,8 @@ return {
             end,
             on_highlights = function(hl, _)
                 hl.Cursor = { bg = "#FFFFFF", fg = "#161616" }
-                hl.Normal = { bg = "#161616", fg = "#FFFFFF" }
-                hl.NormalNC = { bg = "#161616", fg = "#FFFFFF" }
+                hl.Normal = { bg = "", fg = "#FFFFFF" }
+                hl.NormalNC = { bg = "", fg = "#FFFFFF" }
                 hl.StatusLine = { bg = "#FFFFFF", fg = "#000000" }
                 hl.StatusLineNC = { bg = "#444444", fg = "#FFFFFF" }
                 -- hl.StatusLineNC = { fg = "#FFFFFF" }
@@ -30,6 +30,7 @@ return {
                 hl.Visual = { bg = "#484848" }
                 hl.MatchParen = { bg = "#606060", fg = "#FF9E64" }
                 hl.Identifier = { fg = "#ff8700" }
+                hl.SignColumn = { bg = "" }
 
                 -- hl.Search = { bg = "#444444" }
 
@@ -45,7 +46,7 @@ return {
                 hl.DiffChange = { fg = "#FFFFFF", bg = "#AF0087" }
                 hl.DiffDelete = { fg = "#FFFFFF", bg = "#00AFAF" }
 
-                hl.WinSeparator = { bg = "#161616", fg = "#626262" }
+                hl.WinSeparator = { bg = "", fg = "#626262" }
                 hl.CursorLineNr = { bg = "#292E42", fg = "#FF9E64" }
                 hl.LineNr = { fg = "#626262" }
                 hl.LineNrAbove = { fg = "#626262" }

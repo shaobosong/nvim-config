@@ -114,9 +114,9 @@ return {
                 map({'o', 'x'}, 'ih', gitsigns.select_hunk)
 
                 -- Sign highlight group
-                vim.api.nvim_set_hl(0, 'GitSignsAdd',    { fg = "#20D030", bg = "#1A1B26" })
-                vim.api.nvim_set_hl(0, 'GitSignsChange', { fg = "#005FFF", bg = "#1A1B26" })
-                vim.api.nvim_set_hl(0, 'GitSignsDelete', { fg = "#F20F44", bg = "#1A1B26" })
+                vim.api.nvim_set_hl(0, 'GitSignsAdd',    { fg = "#20D030", bg = "" })
+                vim.api.nvim_set_hl(0, 'GitSignsChange', { fg = "#005FFF", bg = "" })
+                vim.api.nvim_set_hl(0, 'GitSignsDelete', { fg = "#F20F44", bg = "" })
             end
         })
     end
