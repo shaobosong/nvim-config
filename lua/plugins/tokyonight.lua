@@ -22,8 +22,8 @@ return {
                 hl.Cursor = { bg = "#FFFFFF", fg = "#161616" }
                 hl.Normal = { bg = "", fg = "#FFFFFF" }
                 hl.NormalNC = { bg = "", fg = "#FFFFFF" }
-                hl.StatusLine = { bg = "#FFFFFF", fg = "#000000" }
-                hl.StatusLineNC = { bg = "#444444", fg = "#FFFFFF" }
+                hl.StatusLine = { bg = "#444444", fg = "#FFFFFF" }
+                hl.StatusLineNC = { bg = "", fg = "#FFFFFF" }
                 -- hl.StatusLineNC = { fg = "#FFFFFF" }
                 hl.MsgArea = { fg = "#c0caf5" }
                 hl.ModeMsg = { fg = "#c0caf5" }
