@@ -92,6 +92,15 @@ return {
                         },
                     },
                 },
+                {
+                    name = "rust_analyzer",
+                    bin = "rust-analyzer",
+                    config = {
+                        settings = {
+                            ['rust-analyzer'] = {},
+                        },
+                    },
+                },
             }
             for _, server in ipairs(servers) do
                 if vim.fn.exepath(server.bin) ~= "" then
