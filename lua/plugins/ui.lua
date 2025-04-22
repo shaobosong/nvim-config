@@ -13,7 +13,7 @@ return {
       recipe = {'default', {animate=true}},
       -- ncmode = 'windows' will fade inactive windows.
       -- ncmode = 'focus' will only fade after you activate the `:VimadeFocus` command.
-      ncmode = 'buffers',
+      ncmode = 'windows',
       fadelevel = 0.4, -- any value between 0 and 1. 0 is hidden and 1 is opaque.
       -- Changes the real or theoretical background color. basebg can be used to give
       -- transparent terminals accurating dimming.  See the 'Preparing a transparent terminal'
