@@ -109,4 +109,17 @@ return {
             end
         end,
     },
+    {
+        "j-hui/fidget.nvim",
+        config = function()
+            require("fidget").setup({
+                notification = {
+                    window = {
+                        normal_hl = "Comment",
+                        winblend = 0,
+                    },
+                },
+            })
+        end,
+    },
 }
